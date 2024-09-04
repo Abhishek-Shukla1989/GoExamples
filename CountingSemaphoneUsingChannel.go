@@ -15,7 +15,9 @@ func do() int {
 		w.Add(1)
 		go func() {
 			m <- true
-			n++
+			n++ // Since counter++ is not atomic (it involves a read-modify-write cycle),
+			//multiple goroutines can interfere with each other, leading to incorrect results.
+
 			<-m
 			w.Done()
 		}()
