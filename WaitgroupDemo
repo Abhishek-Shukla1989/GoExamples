@@ -1,0 +1,32 @@
+package main
+
+import (
+	"fmt"
+	"sync"
+	"time"
+)
+
+func worker(id int, wg *sync.WaitGroup) {
+	defer wg.Done() // Decrement the counter when the goroutine completes
+	fmt.Printf("Worker %d starting\n", id)
+
+	// Simulate work by sleeping
+	time.Sleep(time.Second * time.Duration(id))
+
+	fmt.Printf("Worker %d done\n", id)
+}
+
+func main() {
+	var wg sync.WaitGroup
+
+	// Launch 5 workers
+	for i := 1; i <= 5; i++ {
+		wg.Add(1) // Increment the counter for each worker
+		go worker(i, &wg)
+	}
+
+	// Wait for all workers to finish
+	wg.Wait()
+
+	fmt.Println("All workers completed")
+}
