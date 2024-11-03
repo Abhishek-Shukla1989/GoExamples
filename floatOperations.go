@@ -1,7 +1,7 @@
 
 // ##########################
 // # COMPARE FLOAT       #
-// ##########################
+// ###########################
 func comparefloat(f1, f2, tolerance float64) bool {
 
 	fmt.Println("Abs value ", math.Abs(f1-f2))
